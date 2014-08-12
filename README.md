@@ -55,7 +55,7 @@ Assuming you have a directory struture like this:
 |    +- index.html
 ```
 
-The contents of idst/index.html are:
+The contents of dist/index.html are:
 
 ```html
 <!doctype html>
