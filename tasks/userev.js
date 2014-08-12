@@ -22,70 +22,92 @@ module.exports = function(grunt) {
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-      // Concat specified files.
+
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
         } else {
+          //grunt.log.writeln('File: ' + filepath);
           return true;
         }
-      }).map(function(filepath) {
+      });
+
+      /*
+      .map(function(filepath) {
         // Read file source.
         return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+      });
+      */
 
-      //grunt.log.writeln('src: ' + src);
-      //grunt.log.writeln('summary: ' + grunt.filerev.summary);
-      var modifiedSrc = src,
-          fs = require('fs'),
-          cheerio = require('cheerio'),
-          $ = cheerio.load(modifiedSrc);
+      //grunt.log.writeln('length of src: ' + src.length);
 
-      for(var propertyName in grunt.filerev.summary){
+      src.forEach(function(file){
 
-        var tagToFind,
+        //file is string to filepath
+
+        var modifiedSrc,
+            cheerio,
+            $,
+            newFile,
+            tagToFind,
             newSrcValue,
             newElem;
 
-        newSrcValue = grunt.filerev.summary[propertyName];
+        modifiedSrc = grunt.file.read(file);
 
-        if( /\.js/.test(propertyName) ){
+        cheerio = require('cheerio');
 
-          tagToFind = 'script[src="' + propertyName + '"]';
+        $ = cheerio.load(modifiedSrc);
 
-          newElem = $(tagToFind).attr('src', newSrcValue);
+        newFile = f.dest;
 
-          $(tagToFind).replaceWith( newElem );
+        if(!/\/$/.test(newFile)){
+          newFile += '/';
+        }
 
-        } else if( /\.css/.test(propertyName) ){
+        newFile += file.replace(/^.*[\\\/]/, '');
 
-          tagToFind = 'link[href="' + propertyName + '"]'
+        grunt.log.writeln( 'new file: ' + newFile );
 
-          newElem = $(tagToFind).attr('href', newSrcValue);
+        for(var propertyName in grunt.filerev.summary){
 
-          $(tagToFind).replaceWith( newElem );
+          newSrcValue = grunt.filerev.summary[propertyName];
+
+          if( /\.js/.test(propertyName) ){
+
+            tagToFind = 'script[src="' + propertyName + '"]';
+
+            newElem = $(tagToFind).attr('src', newSrcValue);
+
+            $(tagToFind).replaceWith( newElem );
+
+          } else if( /\.css/.test(propertyName) ){
+
+            tagToFind = 'link[href="' + propertyName + '"]'
+
+            newElem = $(tagToFind).attr('href', newSrcValue);
+
+            $(tagToFind).replaceWith( newElem );
+
+          }
 
         }
 
-      }
+        // Handle options.
+        //src += options.punctuation;
 
-      //grunt.log.writeln($.html());
+        // Write the destination file.
+        grunt.file.write(newFile, $.html());
 
-      grunt.log.writeln(f.dest);
+        // Print a success message.
+        grunt.log.writeln('File "' + newFile + '" created.');
 
-      // Handle options.
-      //src += options.punctuation;
-
-      // Write the destination file.
-      grunt.file.write(f.dest, $.html(), {
-        encoding: 'utf-8'
       });
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
     });
+
   });
 
 };

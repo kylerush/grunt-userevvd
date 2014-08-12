@@ -1,6 +1,6 @@
 node_modules
 npm-debug.log
 tmp
-test/fixtures/dist
+test/dist
 
 .DS_Store

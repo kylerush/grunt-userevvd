@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         options: {
         },
         files: {
-          '<%= config.dest %>': ['<%= config.dest %>/index.html']
+          '<%= config.dest %>': ['<%= config.fixture %>/**/*.html']
         }
       }/*,
       custom_options: {
