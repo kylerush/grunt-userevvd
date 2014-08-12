@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('userevvd', 'Replaces references in HTML to JavaScript and CSS files with their revv\'d version.', function() {
 
-    grunt.userevvd = {summary: {}};
+    grunt.userevvd = grunt.userevvd || {summary: {}};
 
     var target,
         options
