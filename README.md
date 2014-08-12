@@ -1,4 +1,4 @@
-# grunt-userevvd [![Build Status](http://img.shields.io/travis/kylerush/grunt-userevvd.svg?style=flat)](https://github.com/kylerush/grunt-userevvd)
+# grunt-userevvd [![Build Status](http://img.shields.io/travis/kylerush/grunt-userevvd.svg?style=flat)](https://github.com/kylerush/grunt-userevvd) [![NPM version](https://badge.fury.io/js/grunt-userevvd.svg)](http://badge.fury.io/js/grunt-userevvd)
 
 > Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version.
 
