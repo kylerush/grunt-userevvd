@@ -1,6 +1,6 @@
 # grunt-userevvd [![Build Status](http://img.shields.io/travis/kylerush/grunt-userevvd.svg?branch=master)](https://github.com/kylerush/grunt-userevvd) [![NPM version](https://badge.fury.io/js/grunt-userevvd.svg)](http://badge.fury.io/js/grunt-userevvd)
 
-> Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version.
+> Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version for client and edge server caching.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -21,7 +21,9 @@ grunt.loadNpmTasks('grunt-userevvd');
 
 This is a companion task for [grunt-filerev](https://github.com/yeoman/grunt-filerev). You must run the `filerev` task before running the `userevvd` task.
 
-The task reads the summary `grunt.filerev.summary` object that grunt-filerev creates. It replaces all the references to the files that grunt-filerev replaced in the HTML files you specify.
+`grunt-userevvd` is a very lightweight and fast plugin that replaces the src/href attribute value for `<script>` or `<link>` tags to their revv'd version.
+
+The task reads the summary `grunt.filerev.summary` object that `grunt-filerev` creates. It replaces all the references to the newly revv'd files in the .html files you specify.
 
 ### Overview
 In your project's Gruntfile, add a section named `userevvd` to the data object passed into `grunt.initConfig()`.
