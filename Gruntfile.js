@@ -46,6 +46,21 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     userevvd: {
       html: {
+        options: {
+          formatPath: function(path){
+            return path.replace(/^test\/dist/, 'https://cdn.domain.com');
+          }
+        },
+        files: [
+          {
+            cwd: '<%= config.fixture %>/',
+            expand: true,
+            dest: '<%= config.dest %>',
+            src: ['**/*.html']
+          }
+        ]
+      },
+      css: {
         files: {
           '<%= config.dest %>': ['<%= config.fixture %>/**/*.html']
         }

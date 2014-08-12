@@ -26,13 +26,22 @@ The task reads the summary `grunt.filerev.summary` object that grunt-filerev cre
 ### Overview
 In your project's Gruntfile, add a section named `userevvd` to the data object passed into `grunt.initConfig()`.
 
+An `html` task name replaces `script` and `link` references in .html files. Currently only .html files are supported, but .css will come in the future.
+
+You should use the [files array format](http://gruntjs.com/configuring-tasks#files-array-format).
+
 ```js
 grunt.initConfig({
   userevvd: {
     html: {
-      files: {
-        'dist': ['dist/**/*.html']
-      }
+      files: [
+        {
+          cwd: 'dist/',
+          src: '**/*.html',
+          expand: true,
+          dest: 'dist'
+        }
+      ]
     },
   },
 });
@@ -40,7 +49,9 @@ grunt.initConfig({
 
 ### Options
 
-There are no options.
+####options.formatPath (optional)
+
+A function that formats the new `src` or `href` value for the `script`/`link` tag. The argument is passed a string containing the original path from the `grunt.filerev.summary` object.
 
 ### Usage Examples
 
@@ -76,9 +87,21 @@ grunt.initConfig({
     }
   }
   userevvd: {
-    files: {
-      'dist': ['dist/**/*.html'],
-    },
+    html: {
+      options: {
+        formatPath: function(path){
+          return path.replace(/^dist/, 'https://cdn.domain.com');
+        }
+      },
+      files: [
+        {
+          cwd: 'dist/',
+          expand: true,
+          src: '**/*.html',
+          dest: 'dist'
+        }
+      ]
+    }
   },
 });
 ```
@@ -100,10 +123,41 @@ And grunt-userevvd will change the reference to main.js in dist/index.html:
 <!doctype html>
 <html>
   <head>
+    <script src="https://cdn.domain.com/assets/js/main.k8dj3h45.js"></script>
+  </head>
+</html>
+```
+
+If the `formatPath` option were ommitted, dist/index.html would look like this:
+
+```html
+<!doctype html>
+<html>
+  <head>
     <script src="dist/assets/js/main.k8dj3h45.js"></script>
   </head>
 </html>
 ```
+
+## Summary
+
+Just like grunt-filerev, grunt-userevvd produces a `grunt.userevvd.summary` object containing the original path and the new path for each file. Given the example above, the `grunt.userevvd.summary` file would look like:
+
+```json
+{
+  "dist/assets/js/main.js": "https://cdn.domain.com/assets/js/main.k8dj3h45.js"
+}
+```
+
+Or, if you omitted the `formatPath` option:
+
+```json
+{
+  "dist/assets/js/main.js": "dist/assets/js/main.k8dj3h45.js"
+}
+```
+
+In other words, if you don't use the formatPath option, `grunt.userevvd.summary` is exactly the same as `grunt.filerev.summary`.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).

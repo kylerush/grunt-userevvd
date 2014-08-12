@@ -14,11 +14,15 @@ module.exports = function(grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('userevvd', 'Replaces references in HTML to JavaScript and CSS files with their revv\'d version.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+
+    grunt.userevvd = {summary: {}};
+
+    var target,
+        options
+
+    target = this.target;
+
+    options = this.options();
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
@@ -33,66 +37,73 @@ module.exports = function(grunt) {
         }
       });
 
-      src.forEach(function(file){
+      if(target === 'html'){
 
-        //file is string to filepath
+        src.forEach(function(file){
 
-        var modifiedSrc,
-            cheerio,
-            $,
-            newFile,
-            tagToFind,
-            newSrcValue,
-            newElem;
+          //file is string to filepath
 
-        modifiedSrc = grunt.file.read(file);
+          var modifiedSrc,
+              cheerio,
+              $,
+              tagToFind,
+              newSrcValue,
+              newElem;
 
-        cheerio = require('cheerio');
+          modifiedSrc = grunt.file.read(file);
 
-        $ = cheerio.load(modifiedSrc);
+          cheerio = require('cheerio');
 
-        newFile = f.dest;
+          $ = cheerio.load(modifiedSrc);
 
-        if(!/\/$/.test(newFile)){
-          newFile += '/';
-        }
+          for(var propertyName in grunt.filerev.summary){
 
-        newFile += file.replace(/^.*[\\\/]/, '');
+            if(typeof options.formatPath === 'function'){
 
-        for(var propertyName in grunt.filerev.summary){
+              newSrcValue = options.formatPath(grunt.filerev.summary[propertyName]);
 
-          newSrcValue = grunt.filerev.summary[propertyName];
+            } else {
 
-          if( /\.js/.test(propertyName) ){
+              newSrcValue = grunt.filerev.summary[propertyName];
 
-            tagToFind = 'script[src="' + propertyName + '"]';
+            }
 
-            newElem = $(tagToFind).attr('src', newSrcValue);
+            //populate summary object
+            grunt.userevvd.summary[propertyName] = newSrcValue;
 
-            $(tagToFind).replaceWith( newElem );
+            if( /\.js/.test(propertyName) ){
 
-          } else if( /\.css/.test(propertyName) ){
+              tagToFind = 'script[src="' + propertyName + '"]';
 
-            tagToFind = 'link[href="' + propertyName + '"]'
+              newElem = $(tagToFind).attr('src', newSrcValue);
 
-            newElem = $(tagToFind).attr('href', newSrcValue);
+              $(tagToFind).replaceWith( newElem );
 
-            $(tagToFind).replaceWith( newElem );
+            } else if( /\.css/.test(propertyName) ){
+
+              tagToFind = 'link[href="' + propertyName + '"]'
+
+              newElem = $(tagToFind).attr('href', newSrcValue);
+
+              $(tagToFind).replaceWith( newElem );
+
+            }
 
           }
 
-        }
+          // Write the destination file.
+          grunt.file.write(f.dest, $.html());
 
-        // Handle options.
-        //src += options.punctuation;
+          // Print a success message.
+          grunt.log.writeln('Replaced revv\'d assets in ' + f.dest);
 
-        // Write the destination file.
-        grunt.file.write(newFile, $.html());
+        });
 
-        // Print a success message.
-        grunt.log.writeln('Replaced revv\'d assets in ' + newFile);
+      } else {
 
-      });
+        grunt.log.writeln('Target must be named "html". Currently only .html files are supported. In the future, .css will be supported.');
+
+      }
 
     });
 
