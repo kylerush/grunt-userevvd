@@ -29,19 +29,9 @@ module.exports = function(grunt) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
         } else {
-          //grunt.log.writeln('File: ' + filepath);
           return true;
         }
       });
-
-      /*
-      .map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      });
-      */
-
-      //grunt.log.writeln('length of src: ' + src.length);
 
       src.forEach(function(file){
 
@@ -68,8 +58,6 @@ module.exports = function(grunt) {
         }
 
         newFile += file.replace(/^.*[\\\/]/, '');
-
-        grunt.log.writeln( 'new file: ' + newFile );
 
         for(var propertyName in grunt.filerev.summary){
 
@@ -102,7 +90,7 @@ module.exports = function(grunt) {
         grunt.file.write(newFile, $.html());
 
         // Print a success message.
-        grunt.log.writeln('File "' + newFile + '" created.');
+        grunt.log.writeln('Replaced revv\'d assets in ' + newFile);
 
       });
 
