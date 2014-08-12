@@ -27,36 +27,43 @@ exports.userev = {
 
   html: function(test) {
 
-    test.expect(Object.keys(grunt.filerev.summary).length);
-
     var matchedTag,
         $,
         revvdFile,
-        tagToFind;
+        tagToFind,
+        filesToCheck;
 
-    $ = cheerio.load( grunt.file.read('test/dist/index.html') );
+    filesToCheck = ['test/dist/index.html', 'test/dist/index2.html', 'test/dist/sub-html/sub.html'];
 
-    for(var propertyName in grunt.filerev.summary){
+    test.expect(Object.keys(grunt.userevvd.summary).length * filesToCheck.length);
 
-      console.log('looking for: ' + grunt.filerev.summary[propertyName]);
+    filesToCheck.forEach(function(file){
 
-      revvdFile = grunt.filerev.summary[propertyName];
+      $ = cheerio.load( grunt.file.read(file) );
 
-      if( /\.js/.test(propertyName) ){
+      for(var propertyName in grunt.userevvd.summary){
 
-        tagToFind = 'script[src="' + revvdFile + '"]';
+        console.log('looking for: ' + grunt.userevvd.summary[propertyName]);
 
-        test.equal($(tagToFind).attr('src'), grunt.filerev.summary[propertyName], 'JavaScript revved tag version found.');
+        revvdFile = grunt.userevvd.summary[propertyName];
 
-      } else if( /\.css/.test(propertyName) ){
+        if( /\.js/.test(propertyName) ){
 
-        tagToFind = 'link[href="' + revvdFile + '"]';
+          tagToFind = 'script[src="' + revvdFile + '"]';
 
-        test.equal($(tagToFind).attr('href'), grunt.filerev.summary[propertyName], 'CSS revved tag version found.');
+          test.equal($(tagToFind).attr('src'), grunt.userevvd.summary[propertyName], 'JavaScript revved tag version found.');
+
+        } else if( /\.css/.test(propertyName) ){
+
+          tagToFind = 'link[href="' + revvdFile + '"]';
+
+          test.equal($(tagToFind).attr('href'), grunt.userevvd.summary[propertyName], 'CSS revved tag version found.');
+
+        }
 
       }
 
-    }
+    });
 
     test.done();
   }

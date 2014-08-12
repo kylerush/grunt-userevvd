@@ -1,7 +1,7 @@
 {
   "name": "grunt-userevvd",
   "description": "Replaces references in HTML to JavaScript and CSS files with their revv'd version.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/kylerush/grunt-userevvd",
   "author": {
     "name": "Kyle Rush",
