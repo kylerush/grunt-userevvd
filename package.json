@@ -1,8 +1,8 @@
 {
-  "name": "grunt-userev",
+  "name": "grunt-userevved",
   "description": "Replaces references in HTML to JavaScript and CSS files with their revv'd version.",
-  "version": "0.1.0",
-  "homepage": "https://github.com/kylerush/grunt-userev",
+  "version": "0.1.1",
+  "homepage": "https://github.com/kylerush/grunt-userevved",
   "author": {
     "name": "Kyle Rush",
     "email": "kylerrush@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kylerush/grunt-userev.git"
+    "url": "git://github.com/kylerush/grunt-userevved.git"
   },
   "bugs": {
-    "url": "https://github.com/kylerush/grunt-userev/issues"
+    "url": "https://github.com/kylerush/grunt-userevved/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/kylerush/grunt-userev/blob/master/LICENSE-MIT"
+      "url": "https://github.com/kylerush/grunt-userevved/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
