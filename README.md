@@ -1,6 +1,6 @@
 # grunt-userev
 
-> Replaces <script> and <link> HTML tags with their revv'd version.
+> Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
