@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 # grunt-userevvd
+=======
+# grunt-userevvd [![Build Status](http://img.shields.io/travis/kylerush/grunt-userevvd.svg?style=flat)](https://github.com/kylerush/grunt-userevvd)
+>>>>>>> Stashed changes
 
 > Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version.
 
