@@ -42,6 +42,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "cheerio": "0.17.0"
+    "cheerio": "0.17.0",
+    "htmlparser2": "^3.7.3"
   }
 }

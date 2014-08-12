@@ -45,22 +45,11 @@ module.exports = function(grunt) {
     },
     // Configuration to be run (and then tested).
     userev: {
-      default_options: {
-        options: {
-        },
+      html: {
         files: {
           '<%= config.dest %>': ['<%= config.fixture %>/**/*.html']
         }
-      }/*,
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }*/
+      }
     },
 
     // Unit tests.
@@ -91,7 +80,8 @@ module.exports = function(grunt) {
     'clean',
     'copy',
     'filerev',
-    'userev'
+    'userev',
+    'nodeunit'
   ]);
 
 };

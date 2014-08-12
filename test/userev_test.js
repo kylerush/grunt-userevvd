@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var cheerio = require('cheerio');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -23,26 +24,41 @@ var grunt = require('grunt');
 */
 
 exports.userev = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
-  default_options: function(test) {
-    test.expect(1);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+  html: function(test) {
+
+    test.expect(Object.keys(grunt.filerev.summary).length);
+
+    var matchedTag,
+        $,
+        revvdFile,
+        tagToFind;
+
+    $ = cheerio.load( grunt.file.read('test/dist/index.html') );
+
+    for(var propertyName in grunt.filerev.summary){
+
+      console.log('looking for: ' + grunt.filerev.summary[propertyName]);
+
+      revvdFile = grunt.filerev.summary[propertyName];
+
+      if( /\.js/.test(propertyName) ){
+
+        tagToFind = 'script[src="' + revvdFile + '"]';
+
+        test.equal($(tagToFind).attr('src'), grunt.filerev.summary[propertyName], 'JavaScript revved tag version found.');
+
+      } else if( /\.css/.test(propertyName) ){
+
+        tagToFind = 'link[href="' + revvdFile + '"]';
+
+        test.equal($(tagToFind).attr('href'), grunt.filerev.summary[propertyName], 'CSS revved tag version found.');
+
+      }
+
+    }
 
     test.done();
-  },
-  custom_options: function(test) {
-    test.expect(1);
+  }
 
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
-
-    test.done();
-  },
 };
