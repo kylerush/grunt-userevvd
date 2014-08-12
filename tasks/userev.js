@@ -13,7 +13,7 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('userev', 'Replaces references in HTML to JavaScript and CSS files with their revv\'d version.', function() {
+  grunt.registerMultiTask('userevvd', 'Replaces references in HTML to JavaScript and CSS files with their revv\'d version.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       punctuation: '.',

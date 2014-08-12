@@ -44,7 +44,7 @@ module.exports = function(grunt) {
       }
     },
     // Configuration to be run (and then tested).
-    userev: {
+    userevvd: {
       html: {
         files: {
           '<%= config.dest %>': ['<%= config.fixture %>/**/*.html']
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
     'clean',
     'copy',
     'filerev',
-    'userev',
+    'userevvd',
     'nodeunit'
   ]);
 

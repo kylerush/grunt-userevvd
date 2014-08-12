@@ -1,4 +1,4 @@
-# grunt-userev
+# grunt-userevvd
 
 > Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version.
 
@@ -8,27 +8,27 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-userev --save-dev
+npm install grunt-userevvd --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-userev');
+grunt.loadNpmTasks('grunt-userevvd');
 ```
 
-## The "userev" task
+## The "userevvd" task
 
-This is a companion task for [grunt-filerev](https://github.com/yeoman/grunt-filerev). You must run the `filerev` task before running the `userev` task.
+This is a companion task for [grunt-filerev](https://github.com/yeoman/grunt-filerev). You must run the `filerev` task before running the `userevvd` task.
 
 The task reads the summary `grunt.filerev.summary` object that grunt-filerev creates. It replaces all the references to the files that grunt-filerev replaced in the HTML files you specify.
 
 ### Overview
-In your project's Gruntfile, add a section named `userev` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `userevvd` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  userev: {
+  userevvd: {
     html: {
       files: {
         'dist': ['dist/**/*.html']
@@ -75,7 +75,7 @@ grunt.initConfig({
       src: 'dist/assets/js/**/*.js'
     }
   }
-  userev: {
+  userevvd: {
     files: {
       'dist': ['dist/**/*.html'],
     },
@@ -94,7 +94,7 @@ grunt-filerev will add a hash to the main.js file name:
 |    +- index.html
 ```
 
-And grunt-userev will change the reference to main.js in dist/index.html:
+And grunt-userevvd will change the reference to main.js in dist/index.html:
 
 ```html
 <!doctype html>
