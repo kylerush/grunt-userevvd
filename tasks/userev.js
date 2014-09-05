@@ -47,6 +47,7 @@ module.exports = function(grunt) {
               cheerio,
               $,
               tagToFind,
+              newPath,
               newSrcValue,
               newElem;
 
@@ -58,9 +59,19 @@ module.exports = function(grunt) {
 
           for(var propertyName in grunt.filerev.summary){
 
-            if(typeof options.formatPath === 'function'){
+            if(typeof options.formatOriginalPath === 'function'){
 
-              newSrcValue = options.formatPath(grunt.filerev.summary[propertyName]);
+              newPath = options.formatOriginalPath(propertyName);
+
+            } else {
+
+              newPath = propertyName;
+
+            }
+
+            if(typeof options.formatNewPath === 'function'){
+
+              newSrcValue = options.formatNewPath(grunt.filerev.summary[propertyName]);
 
             } else {
 
@@ -73,7 +84,7 @@ module.exports = function(grunt) {
 
             if( /\.js/.test(propertyName) ){
 
-              tagToFind = 'script[src="' + propertyName + '"]';
+              tagToFind = 'script[src="' + newPath + '"]';
 
               newElem = $(tagToFind).attr('src', newSrcValue);
 
@@ -81,7 +92,7 @@ module.exports = function(grunt) {
 
             } else if( /\.css/.test(propertyName) ){
 
-              tagToFind = 'link[href="' + propertyName + '"]'
+              tagToFind = 'link[href="' + newPath + '"]'
 
               newElem = $(tagToFind).attr('href', newSrcValue);
 

@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     userevvd: {
       html: {
         options: {
-          formatPath: function(path){
+          formatNewPath: function(path){
             return path.replace(/^test\/dist/, 'https://cdn.domain.com');
           }
         },
