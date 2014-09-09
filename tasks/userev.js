@@ -82,9 +82,18 @@ module.exports = function(grunt) {
             //populate summary object
             grunt.userevvd.summary[propertyName] = newSrcValue;
 
-            if( /\.js/.test(propertyName) ){
+            if(
 
-              tagToFind = 'script[src="' + newPath + '"]';
+              /\.js/.test(propertyName) ||
+              /\.png/.test(propertyName) ||
+              /\.jpg/.test(propertyName) ||
+              /\.jpeg/.test(propertyName) ||
+              /\.gif/.test(propertyName) ||
+              /\.svg/.test(propertyName)
+
+            ){
+
+              tagToFind = '[src="' + newPath + '"]';
 
               newElem = $(tagToFind).attr('src', newSrcValue);
 

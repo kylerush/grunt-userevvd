@@ -47,9 +47,18 @@ exports.userev = {
 
         revvdFile = grunt.userevvd.summary[propertyName];
 
-        if( /\.js/.test(propertyName) ){
+        if(
 
-          tagToFind = 'script[src="' + revvdFile + '"]';
+          /\.js/.test(propertyName) ||
+          /\.png/.test(propertyName) ||
+          /\.jpg/.test(propertyName) ||
+          /\.jpeg/.test(propertyName) ||
+          /\.gif/.test(propertyName) ||
+          /\.svg/.test(propertyName)
+
+        ){
+
+          tagToFind = '[src="' + revvdFile + '"]';
 
           test.equal($(tagToFind).attr('src'), grunt.userevvd.summary[propertyName], 'JavaScript revved tag version found.');
 
