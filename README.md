@@ -1,6 +1,6 @@
 # grunt-userevvd [![Build Status](http://img.shields.io/travis/kylerush/grunt-userevvd.svg?branch=master)](https://github.com/kylerush/grunt-userevvd) [![NPM version](https://badge.fury.io/js/grunt-userevvd.svg)](http://badge.fury.io/js/grunt-userevvd)
 
-> Replaces &lt;script&gt; and &lt;link&gt; HTML tags with their revv'd version for client and edge server caching.
+> Replaces &lt;script&gt;, &lt;link&gt;, and &lt;img&gt; HTML tags with their rev'd version for client and edge server caching.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -51,9 +51,13 @@ grunt.initConfig({
 
 ### Options
 
-####options.formatPath (optional)
+####options.formatNewPath (optional)
 
 A function that formats the new `src` or `href` value for the `script`/`link` tag. The argument is passed a string containing the original path from the `grunt.filerev.summary` object.
+
+####options.formatOriginalPath (optional)
+
+A function that formats the original file path from grunt-filerev. This plugin will look for the a tag with the return value from this function to replace.
 
 ### Usage Examples
 
