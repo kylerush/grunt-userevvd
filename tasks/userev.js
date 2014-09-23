@@ -18,14 +18,20 @@ module.exports = function(grunt) {
     grunt.userevvd = grunt.userevvd || {summary: {}};
 
     var target,
-        options
+        options,
+        cheerio,
+        async,
+        replace;
 
     target = this.target;
 
     options = this.options();
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
+    cheerio = require('cheerio');
+
+    async = require('async');
+
+    replace = function(f){
 
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -49,11 +55,13 @@ module.exports = function(grunt) {
               tagToFind,
               newPath,
               newSrcValue,
-              newElem;
+              newElem,
+              async,
+              replace;
 
           modifiedSrc = grunt.file.read(file);
 
-          cheerio = require('cheerio');
+          var cheerio = require('cheerio');
 
           $ = cheerio.load(modifiedSrc);
 
@@ -122,6 +130,25 @@ module.exports = function(grunt) {
       } else {
 
         grunt.log.writeln('Target must be named "html". Currently only .html files are supported. In the future, .css will be supported.');
+
+      }
+
+    };
+
+    // Iterate over all specified file groups.
+    async.each(this.files, function(f, callback){
+
+      replace(f);
+
+    }, function(err){
+
+      if(err){
+
+        console.log('An error occured');
+
+      } else {
+
+        console.log('All files processing successfully.');
 
       }
 
