@@ -34,6 +34,7 @@ exports.userev = {
         filesToCheck;
 
     filesToCheck = ['test/dist/index.html', 'test/dist/index2.html', 'test/dist/sub-html/sub.html'];
+    console.log(grunt.userevvd.summary);
 
     test.expect(Object.keys(grunt.userevvd.summary).length * filesToCheck.length);
 
@@ -62,9 +63,10 @@ exports.userev = {
 
           test.equal($(tagToFind).attr('src'), grunt.userevvd.summary[propertyName], 'JavaScript revved tag version found.');
 
-        } else if( /\.css/.test(propertyName) ){
+        } else if( /\.(css|ico)/.test(propertyName) ){
 
           tagToFind = 'link[href="' + revvdFile + '"]';
+          console.log('tag to find', tagToFind, grunt.userevvd.summary[propertyName]);
 
           test.equal($(tagToFind).attr('href'), grunt.userevvd.summary[propertyName], 'CSS revved tag version found.');
 
