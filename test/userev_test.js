@@ -63,10 +63,15 @@ exports.userev = {
 
           test.equal($(tagToFind).attr('src'), grunt.userevvd.summary[propertyName], 'JavaScript revved tag version found.');
 
-        } else if( /\.(css|ico)/.test(propertyName) ){
+        } else if(
+
+            /\.css/.test(propertyName) ||
+            /\.ico/.test(propertyName)
+
+        ){
+
 
           tagToFind = 'link[href="' + revvdFile + '"]';
-          console.log('tag to find', tagToFind, grunt.userevvd.summary[propertyName]);
 
           test.equal($(tagToFind).attr('href'), grunt.userevvd.summary[propertyName], 'CSS revved tag version found.');
 
