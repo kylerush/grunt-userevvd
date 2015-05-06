@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     },
     filerev: {
       fixture: {
-        src: '<%= config.dest %>/**/*.{js,css}'
+        src: '<%= config.dest %>/**/*.{js,css,ico}'
       }
     },
     // Configuration to be run (and then tested).
