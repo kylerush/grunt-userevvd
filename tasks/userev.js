@@ -99,7 +99,12 @@ module.exports = function(grunt) {
 
               $(tagToFind).replaceWith( newElem );
 
-            } else if( /\.css/.test(propertyName) ){
+            } else if(
+
+              /\.css/.test(propertyName) ||
+              /\.ico/.test(propertyName)
+
+            ){
 
               tagToFind = 'link[href="' + newPath + '"]'
 
